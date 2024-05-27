@@ -6,7 +6,7 @@
 
 ## ATTACHMENT
 
-TBD
+当执行配件 (Attachments) 技能时触发
 
 ## BEAM_HIT_ENTITY
 
@@ -19,6 +19,26 @@ TBD
 ## BOW_SHOOT
 
 使用弓射击时触发 (指释放弓弦时,且必须在背包中持有一个箭道具).
+
+## CLICK_BLOCK
+
+在玩家左键点击，开始破坏方块时触发。
+
+## CRITICAL
+
+在玩家触发暴击伤害成功时触发。
+
+## CRITICAL_FORCE_FAIL
+
+在玩家触发暴击伤害前，被对方抗暴判定生效时触发
+
+## DODGE
+
+在玩家闪避成功时触发。
+
+## DROP
+
+在玩家丢弃物品时触发。
 
 ## HIT
 
@@ -38,15 +58,15 @@ TBD
 
 ## LEFT_CLICK
 
-在点击鼠标左边时触发。
+在点击鼠标左键时触发。
 
 ## LIVING_ENTITY
 
-TBD
+在技能要求上下文为 LIVING_ENTITY 时触发
 
 ## LOCATION
 
-TBD
+在技能要求上下文为 LOCATION 时触发
 
 ## OFFHAND_CLICK
 
@@ -71,6 +91,10 @@ TBD
 ## SNEAK
 
 在潜行时触发。
+
+## DOUBLE_SNEAK
+
+在双击潜行键 (两次间隔不超过 `500` 毫秒) 时触发。
 
 ## SNEAKING
 

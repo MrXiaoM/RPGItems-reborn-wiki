@@ -75,6 +75,10 @@
 ## 伤害种类条件（DamageTypeCondition）
 
 在伤害种类（damageType）对应时生效。
++ `melee`
++ `ranged`
++ `magic`
++ `summon`
 
 ## 耐久条件（DurabilityCondition）
 
@@ -82,7 +86,15 @@
 
 ## 装备条件（EquipmentCondition）
 
-当道具穿戴在正确物品栏位置时生效。
+当道具 (material, rpgitem) 穿戴在正确物品栏位置 (slots) 时生效。
+slots 的值可以为
++ `HAND`
++ `OFF_HAND`
++ `FEET`
++ `LEGS`
++ `CHEST`
++ `HEAD`
+
 
 ## 计分板条件（ScoreboardCondition）
 
@@ -90,8 +102,52 @@
 
 ## 动态条件（EvalCondition）
 
-TBD
+当指定表达式 (expression) 返回的值为 1 时生效。  
+表达值中可用以下参数
++ `playerYaw`
++ `playerPitch`
++ `playerX`
++ `playerY`
++ `playerZ`
++ `playerLastDamage`
++ `playerScoreBoard.<计分板键>.<默认值>`
++ `playerContext.<上下文键>.<默认值>`
++ `now` 当前毫秒时间戳
 
 ## 结果条件（LastResultCondition）
 
 当上一技能正确执行时生效。
+
+## 生命值条件 (HealthCondition)
+
+当玩家血量满足条件 (type, value) 时生效。
+type 的值可以为  
++ `<`
++ `<=`
++ `>`
++ `>=`
++ `=`
++ `!=`
++ `range`
+当 type 为 `range` 时，需要同时设置 `value` 和 `valueMax`
+
+## 潜行条件 (SneakCondition/NotSneakCondition)
+
+当玩家潜行/没有潜行时生效。
+
+## 套装条件 (OnesuitCondition)
+
+当玩家指定装备栏格子存在某件神器时生效。  
+可用格子有
++ `helmet`
++ `chestplate`
++ `leggings`
++ `boots`
++ `mainHand`
++ `offHand`
+
+不填写的格子将不会检查。
+
+## 燃烧条件 (SelfBurningCondition)
+
+当玩家正在燃烧时生效。

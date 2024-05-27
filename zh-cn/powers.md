@@ -92,6 +92,16 @@
 
 发射箭矢，不推荐使用。请使用弹射物 `Projectile` 。
 
+## 自定义箭矢 (ArrowItem)
+
+发射一枚雪球，可自定义其物品材质，发射时需要消耗对应物品。
+
+- `item` 发射的箭矢物品材质
+- `sound` 发射音效
+- `fire` 是否添加火焰效果
+- `noGravity` 是否无重力
+- `explodeFire` 箭矢击中后是否有爆炸粒子效果
+
 ## 配件（Attachment）
 
 用于触发其他道具的ATTACHMENT触发。
@@ -178,7 +188,12 @@
 
 - `command` 执行的命令. 当命令中包含空格时请使用`` ` ``符号。示例：`` command:`minecraft:give {player} stone` ``
 - `display` 在道具描述中显示的展示名
-- `permission` 执行命令所需要的命令节点
+- `permission` 执行命令所需要的命令权限节点
+
+命令权限节点说明：
+- `*` 代表管理员权限，`不推荐使用`，原理是记录玩家OP状态，设置玩家为OP，执行命令，再还原玩家OP状态。
+- `console` 代表控制台权限，使用控制台身份执行命令，`推荐使用`
+- 其它为给予玩家权限 `1 tick` 的时间，并同时执行命令
 
 可在命令中使用的变量：
 
@@ -197,15 +212,19 @@
 - `permission` 执行命令需要的命令节点
 - `minDamage` 触发技能所需要的最低伤害
 
-命令中可以使用的变量：
+命令权限节点说明详见 **命令 (Command)**
+命令中可以使用的变量详见 **命令 (Command)**
 
-- `{entity}` 目标名
-- `{entity.uuid}` 目标的UUID
-- `{entity.x}` 目标的X轴坐标
-- `{entity.y}` 目标的Y轴坐标
-- `{entity.z}` 目标的Z轴坐标
-- `{entity.yaw}` 目标的yaw坐标
-- `{entity.pitch}` 目标的pitch
+## 佩戴命令 (CommandTick)
+
+在持有或穿戴时执行命令。
+
+- `command` 执行的命令
+- `permission` 执行命令需要的命令节点
+- `interval` 生效间隔时间，单位 Tick
+
+命令权限节点说明详见 **命令 (Command)**
+命令中可以使用的变量详见 **命令 (Command)**
 
 ## 消耗（Consume）
 
@@ -215,14 +234,15 @@
 
 击中时消耗道具。
 
-## 暴击伤害（CriticalHit）
+## [已弃用] 暴击伤害（CriticalHit）
 
 造成暴击伤害。
 
-- `chance` 暴击概率，N%
-- `backstabchance` 背刺概率，N%
-- `factor` 暴击伤害倍率
-- `backstabFactor` 背刺伤害倍率
+> 已弃用，与暴击、抗暴、闪避系统合并，另请参见 `/rpgitem critical`
+> - `chance` 暴击概率，N%
+> - `backstabchance` 背刺概率，N%
+> - `factor` 暴击伤害倍率
+> - `backstabFactor` 背刺伤害倍率
 
 ## 即死命令（DeathCommand）
 
@@ -311,6 +331,28 @@
 使用表达式来计算伤害。
 
 - `expression` 用于计算伤害的表达式
+
+表达式中可用以下参数
++ `damage`
++ `damageType`
++ `isDamageByProjectile`
++ `damagerTicksLived`
++ `finalDamage`
++ `distance`
++ `playerYaw`
++ `playerPitch`
++ `playerX`
++ `playerY`
++ `playerZ`
++ `entityType`
++ `entityYaw`
++ `entityPitch`
++ `entityX`
++ `entityY`
++ `entityZ`
++ `entityLastDamage`
++ `cause`
++ `playerScoreBoard.<计分板键>.<默认值>`
 
 ## 爆炸（Explosion）
 
@@ -412,6 +454,12 @@
 
 - `maxDistance` 生物最远距离
 - `maxTicks` 最大乘骑时间
+
+## 技能 (Mythic)
+
+释放 MythicMobs 技能。
+
+- `skill` 需要释放的技能名
 
 ## 取消无敌时间（NoImmutableTick）
 
@@ -586,6 +634,10 @@
 - `team` 队伍名
 - `value` 分数值
 
+## 自我攻击 (SelfAttack)
+
+攻击实体时取消伤害，对玩家自己造成伤害。
+
 ## 潜影弹（Shulkerbullet）
 
 发射追踪目标的潜影弹。
@@ -624,10 +676,6 @@
 - `facing` 角度范围
 - `range` 距离范围
 
-## TNT大炮（TNTCannon）
-
-发送TNT。
-
 ## 传送（Teleport）
 
 传送一段距离。
@@ -655,6 +703,10 @@
 
 发射带有药水效果的箭矢，不推荐使用。请使用弹射物`Projectile`与命中效果`PotionHit`技能。
 
+## TNT大炮（TNTCannon）
+
+发送TNT。
+
 ## 火把（Torch）
 
 投掷一些火把来照亮一片区域。
@@ -666,4 +718,3 @@
 - `speed` 
 - `setupCost` 设立信标的耐久消耗
 - `tpCost` 传送耐久消耗
-
