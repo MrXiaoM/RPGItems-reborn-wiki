@@ -32,8 +32,8 @@
 
 这是一份插件的默认配置文件：
 
-```
-language: en_US
+```yaml
+language: zh_CN
 version: '1.0'
 general:
   readonly: false
@@ -75,22 +75,41 @@ unused:
   locale_inv: false
 factor_config:
   __class__: think.rpgitems.data.FactorConfig
+  # 默认配置为: 生物克制异能，异能克制机械，机械克制生物。
+  # 被克制的一方，攻击时只能造成 80% 伤害，被攻击时额外受到 20% 伤害
   factors:
     creature:
       name: '&eCreature'
       damage_to:
         machine: damage * 0.8
         supernatural: damage * 1.2
+        weak: damage * 1.8
     machine:
       name: '&bMachine'
       damage_to:
         creature: damage * 1.2
         supernatural: damage * 0.8
+        weak: damage * 1.8
     supernatural:
       name: '&dSuper Natural'
       damage_to:
         creature: damage * 0.8
         machine: damage * 1.2
+        weak: damage * 1.8
+    weak:
+      name: '&cWeak'
+      damage_to:
+        creature: damage * 0.2
+        machine: damage * 0.2
+        supernatural: damage * 0.2
+  # 默认配置为: 当玩家身上的装备同时出现两种或以上不同的元素时
+  # 这些元素冲突，玩家将被定义为 weak 废物元素
+  # 所有元素攻击他都可以造成额外 80% 伤害，他攻击其他元素只能造成 20% 伤害。
+  # 若不设定冲突重定义，玩家当前元素将被定义为他的装备里面出现次数最多的元素
+  conflict_override:
+    machine,creature: weak
+    machine,supernatural: weak
+    creature,supernatural: weak
 stone:
   max_count: 3
   shift-right-click-remove-last: false
@@ -161,6 +180,8 @@ stone:
         - `目标元素名2` ... 以此类推
     - `元素名2`
       - ...以此类推
+  - conflict_override 冲突元素重定义
+    - `元素名1,元素名2,元素名3...` 玩家身上的装备同时有这些元素时，玩家将被定义为另外的元素
 - stone 设置
   - `max_count` 每个神器所能安装的技能石最大数量
   - `shift-right-click-remove-last` 是否允许在物品栏按住Shift+右键点击神器卸下最后一个技能石

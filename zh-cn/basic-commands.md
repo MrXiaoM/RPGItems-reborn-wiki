@@ -10,6 +10,12 @@
 /rpgitem create myitem
 ```
 
+## 编辑道具 (可视化界面)
+
+```
+/rpgitem edit myitem
+```
+
 ## 删除道具
 
 ```
